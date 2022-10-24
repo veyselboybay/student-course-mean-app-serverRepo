@@ -32,4 +32,21 @@ export const postCourseController = async (req, res) => {
 
 // delete course
 
-export const deleteCourseController = async (req, res) => {};
+export const deleteCourseController = async (req, res) => {
+  const courseId = req.params.id;
+  //check if the id match with actual course id
+  const course = await Course.findById(courseId);
+  console.log(course);
+  if (!course) {
+    return res.status(404).json({
+      success: false,
+      msg: "No course match for delete action",
+    });
+  }
+  const deletedCourse = await Course.deleteOne({ _id: courseId });
+  res.json({
+    success: true,
+    msg: "you deleted the course",
+    deletedCourse: deletedCourse,
+  });
+};
