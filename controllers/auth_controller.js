@@ -28,7 +28,7 @@ export const registerNewStudent = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPass = await bcrypt.hash(password, salt);
   const student = new Student({ ...req.body, password: hashedPass });
-  student.save();
+  await student.save();
   //Set up jwt token
   const token = jwt.sign({ _id: student._id }, process.env.SECRET_KEY);
   await res.cookie("auth_token", token, {
