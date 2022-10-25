@@ -34,14 +34,12 @@ export const registerNewStudent = async (req, res) => {
   await res.cookie("auth_token", token, {
     httpOnly: true,
   });
-  return res
-    .status(200)
-    .json({
-      success: true,
-      msg: "User registered!",
-      token: token,
-      user: student,
-    });
+  return res.status(200).json({
+    success: true,
+    msg: "User registered!",
+    token: token,
+    user: student,
+  });
 };
 
 // export const getLoginPage = (req, res) => {
@@ -77,5 +75,5 @@ export const postLoginPage = async (req, res) => {
 
 export const postLogoutPage = (req, res) => {
   res.clearCookie("auth_token");
-  return res.json("Logged out user: " + res.userId);
+  return res.json({ msg: "Logged out user" });
 };
