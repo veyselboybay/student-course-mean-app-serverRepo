@@ -34,7 +34,14 @@ export const registerNewStudent = async (req, res) => {
   await res.cookie("auth_token", token, {
     httpOnly: true,
   });
-  return res.status(200).json({ success: true, msg: "User registered!" });
+  return res
+    .status(200)
+    .json({
+      success: true,
+      msg: "User registered!",
+      token: token,
+      user: student,
+    });
 };
 
 // export const getLoginPage = (req, res) => {
@@ -60,7 +67,12 @@ export const postLoginPage = async (req, res) => {
   const token = await jwt.sign({ _id: isUser._id }, process.env.SECRET_KEY);
   res.cookie("auth_token", token, { httpOnly: true });
   //return user
-  res.status(200).json({ success: true, msg: "Logged In user: " + isUser._id });
+  return res.status(200).json({
+    success: true,
+    msg: "User Logged In.",
+    user: isUser,
+    token: token,
+  });
 };
 
 export const postLogoutPage = (req, res) => {

@@ -3,7 +3,7 @@ import Course from "../models/course_model.js";
 //GET all courses
 export const getAllCoursesController = async (req, res) => {
   const allCourses = await Course.find({});
-  res
+  return res
     .status(200)
     .json({ success: true, userId: res.userId, courses: allCourses });
 };
@@ -25,7 +25,7 @@ export const postCourseController = async (req, res) => {
   const newCourse = await Course(req.body);
   //SAVE THE COURSE
   await newCourse.save();
-  res
+  return res
     .status(200)
     .json({ success: true, msg: "you added new course.", course: newCourse });
 };
@@ -44,7 +44,7 @@ export const deleteCourseController = async (req, res) => {
     });
   }
   const deletedCourse = await Course.deleteOne({ _id: courseId });
-  res.json({
+  return res.json({
     success: true,
     msg: "you deleted the course",
     deletedCourse: deletedCourse,
